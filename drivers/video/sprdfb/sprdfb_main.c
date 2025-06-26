@@ -45,15 +45,10 @@
 enum{
 	SPRD_IN_DATA_TYPE_ABGR888 = 0,
 	SPRD_IN_DATA_TYPE_BGR565,
-	/*
-	   SPRD_IN_DATA_TYPE_RGB666,
-	   SPRD_IN_DATA_TYPE_RGB555,
-	   SPRD_IN_DATA_TYPE_PACKET,
-	   */ /*not support*/
 	SPRD_IN_DATA_TYPE_LIMIT
 };
 
-#define SPRDFB_IN_DATA_TYPE SPRD_IN_DATA_TYPE_ABGR888
+#define SPRDFB_IN_DATA_TYPE SPRD_IN_DATA_TYPE_BGR565
 
 #define SPRDFB_FRAMES_TO_SKIP 	(1)
 
@@ -433,7 +428,7 @@ static int sprdfb_check_var(struct fb_var_screeninfo *var, struct fb_info *fb)
 	if ((var->xres != fb->var.xres) ||
 			(var->yres != fb->var.yres) ||
 			(var->xres_virtual != fb->var.xres_virtual) ||
-			(var->yres_virtual != fb->var.yres_virtual) ||
+			(fb->var.yres_virtual % var->yres_virtual != 0) ||
 			(var->xoffset != fb->var.xoffset) ||
 #ifndef BIT_PER_PIXEL_SURPPORT
 			(var->bits_per_pixel != fb->var.bits_per_pixel) ||
